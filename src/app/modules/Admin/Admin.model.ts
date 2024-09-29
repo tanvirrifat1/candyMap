@@ -5,11 +5,20 @@ const adminSchema: Schema = new Schema<TAdmin>(
   {
     email: {
       type: String,
-      required: true,
+      required: [true, 'Email is required'],
+      unique: true,
     },
-    password: {
+    name: {
       type: String,
       required: true,
+    },
+    user: {
+      type: Schema.Types.ObjectId,
+      unique: true,
+      ref: 'User',
+    },
+    contactNo: {
+      type: String,
     },
     body: {
       type: String,
@@ -22,6 +31,10 @@ const adminSchema: Schema = new Schema<TAdmin>(
     type: {
       type: String,
       required: true,
+    },
+    isDeleted: {
+      type: Boolean,
+      default: false,
     },
   },
   {

@@ -1,3 +1,5 @@
+import httpStatus from 'http-status';
+import { AppError } from '../../../utils/AppError';
 import { TAdmin } from '../Admin/Admin.interface';
 import { Admin } from '../Admin/Admin.model';
 
@@ -5,6 +7,8 @@ import { TCandyGiver } from '../Candy/candy.interface';
 import { CandyGiver } from '../Candy/candy.model';
 import { TUser } from './user.interface';
 import { User } from './user.model';
+import mongoose from 'mongoose';
+import config from '../../config';
 
 const createCandyGiverIntoDb = async (
   data: TCandyGiver,
@@ -23,21 +27,47 @@ const createCandyGiverIntoDb = async (
   return { candyGiver, user };
 };
 
-const createAdminIntoDb = async (
-  data: TAdmin,
-): Promise<{ admin: TAdmin; user: TUser }> => {
-  const user = await User.create({
-    email: data.email,
-    password: data.password,
-    role: 'admin',
-  });
+const createAdminIntoDb = async (password: string, payload: TAdmin) => {
+  const userData: Partial<TUser> = {};
+  //if password is not given , use default password
+  userData.password = password || (config.default_password as string);
 
-  const admin = await Admin.create({
-    ...data,
-    user: user._id,
-  });
-  console.log(admin, 'admin');
-  return { admin, user };
+  userData.role = 'admin';
+  userData.email = payload.email;
+
+  const session = await mongoose.startSession();
+
+  try {
+    session.startTransaction();
+    // set generated id
+    // userData.id = await generateAdminId();
+
+    //create a user
+    const newUser = await User.create([userData], { session });
+    //create a admin-1
+
+    if (!newUser.length) {
+      throw new AppError(httpStatus.BAD_REQUEST, 'Failed to create admin');
+    }
+    // payload.id = newUser[0].id;
+    payload.user = newUser[0]._id;
+    //create a admin-2
+
+    const newAdmin = await Admin.create([payload], { session });
+
+    if (!newAdmin.length) {
+      throw new AppError(httpStatus.BAD_REQUEST, 'Failed to create admin');
+    }
+
+    await session.commitTransaction();
+    await session.endSession();
+
+    return newAdmin;
+  } catch (error) {
+    await session.abortTransaction();
+    await session.endSession();
+    throw new AppError(httpStatus.BAD_REQUEST, `${error}`);
+  }
 };
 
 export const UserService = {

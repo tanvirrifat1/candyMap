@@ -16,13 +16,14 @@ const createCandy = catchAsync(async (req, res) => {
 });
 
 const createAdminIntoDb = catchAsync(async (req, res) => {
-  const adminData = req.body;
-  const result = UserService.createAdminIntoDb(adminData);
+  const { password, admin: AdminData } = req.body;
+
+  const result = await UserService.createAdminIntoDb(password, AdminData);
 
   sendResponse(res, {
     statusCode: httpStatus.OK,
     success: true,
-    message: 'admin created successfully!',
+    message: 'Admin created successfully',
     data: result,
   });
 });
