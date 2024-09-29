@@ -3,14 +3,18 @@ import catchAsync from '../../../utils/catchAsync';
 import sendResponse from '../../../utils/sendResponse';
 import { UserService } from './user.service';
 
-const createCandy = catchAsync(async (req, res) => {
-  const candyGiverData = req.body;
-  const result = UserService.createCandyGiverIntoDb(candyGiverData);
+const createCandyGiverIntoDb = catchAsync(async (req, res) => {
+  const { password, candy: candyGiverData } = req.body;
+
+  const result = await UserService.createCandyGiverIntoDb(
+    password,
+    candyGiverData,
+  );
 
   sendResponse(res, {
     statusCode: httpStatus.OK,
     success: true,
-    message: 'candy created successfully!',
+    message: 'CandyGiver created successfully',
     data: result,
   });
 });
@@ -29,6 +33,6 @@ const createAdminIntoDb = catchAsync(async (req, res) => {
 });
 
 export const UserController = {
-  createCandy,
+  createCandyGiverIntoDb,
   createAdminIntoDb,
 };
