@@ -3,6 +3,7 @@ import { CandyGiverRoute } from '../modules/Candy/candy.route';
 import { UserRoute } from '../modules/user/user.route';
 import { AdminRoute } from '../modules/Admin/Admin.route';
 import { AuthRoute } from '../modules/auth/auth.route';
+import { ParentRoute } from '../modules/Parent/Parent.route';
 
 const router = Router();
 
@@ -22,6 +23,10 @@ const modulesRoutes = [
   {
     path: '/auth',
     route: AuthRoute,
+  },
+  {
+    path: '/parent',
+    route: ParentRoute,
   },
 ];
 

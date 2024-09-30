@@ -14,6 +14,7 @@ const candyGiverSchema: Schema = new Schema<TCandyGiver>(
     lat: { type: Number },
     lng: { type: Number },
     isDeleted: { type: Boolean, default: false },
+    createParent: { type: Boolean, default: false },
     currentLon: {
       type: {
         type: String,

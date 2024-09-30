@@ -8,6 +8,7 @@ export type TCandyGiver = {
   lat?: number;
   lng?: number;
   isDeleted?: boolean;
+  createParent?: boolean;
   currentLon?: {
     type: 'Point';
     coordinates: [number, number];

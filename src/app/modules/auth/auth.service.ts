@@ -5,6 +5,7 @@ import { jwtHelpers } from '../../../Helpers/JwtHelpers';
 import config from '../../config';
 import { Secret } from 'jsonwebtoken';
 import { AppError } from '../../../utils/AppError';
+import { sendEmail } from '../../ulitis/sendMail';
 
 const loginUser = async (payload: ILoginUser): Promise<ILoginUserResponse> => {
   const { email, password } = payload;
