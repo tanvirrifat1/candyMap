@@ -15,3 +15,9 @@ candyGiver and admin ===>
        2. you can edit information       
        3. you can delete account just change isDeleted filed ==> false==true
            
+
+functionality ===>
+       1. use populate
+       2. use aggregation  
+       3. use validation with Zod etc.
+     
