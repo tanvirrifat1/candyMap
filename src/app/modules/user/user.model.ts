@@ -56,7 +56,6 @@ userSchema.statics.isUserExist = async function (email: string) {
   ).exec();
 };
 
-// Static method to check if passwords match
 userSchema.statics.isPasswordMatched = async function (
   givenPassword: string,
   savedPassword: string,

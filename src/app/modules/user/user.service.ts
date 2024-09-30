@@ -61,19 +61,14 @@ const createAdminIntoDb = async (password: string, payload: TAdmin) => {
 
   try {
     session.startTransaction();
-    // set generated id
-    // userData.id = await generateAdminId();
 
-    //create a user
     const newUser = await User.create([userData], { session });
-    //create a admin-1
 
     if (!newUser.length) {
       throw new AppError(httpStatus.BAD_REQUEST, 'Failed to create admin');
     }
-    // payload.id = newUser[0].id;
+
     payload.user = newUser[0]._id;
-    //create a admin-2
 
     const newAdmin = await Admin.create([payload], { session });
 
