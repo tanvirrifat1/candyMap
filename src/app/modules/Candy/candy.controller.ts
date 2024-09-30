@@ -37,12 +37,19 @@ import { CandyService } from './candy.service';
 // });
 
 const getAllCandy = catchAsync(async (req, res) => {
-  const result = await CandyService.getAllCandy(req.query);
+  const { lat, lng, maxDistance, ...query } = req.query;
+
+  const result = await CandyService.getAllCandy(
+    query,
+    lat ? Number(lat) : undefined,
+    lng ? Number(lng) : undefined,
+    maxDistance ? Number(maxDistance) : undefined,
+  );
 
   sendResponse(res, {
     statusCode: httpStatus.OK,
     success: true,
-    message: 'candyGiver get successfully',
+    message: 'candyGiver retrieved successfully',
     data: result,
   });
 });

@@ -1,11 +1,13 @@
 import mongoose from 'mongoose';
-import QueryBuilder from '../../builder/QueryBuilder';
-import { candySearchAbleFields } from './candy.constant';
+// import QueryBuilder from '../../builder/QueryBuilder';
+// import { candySearchAbleFields } from './candy.constant';
 import { TCandyGiver } from './candy.interface';
 import { CandyGiver } from './candy.model';
 import { AppError } from '../../../utils/AppError';
 import httpStatus from 'http-status';
 import { User } from '../user/user.model';
+import QueryBuilder from '../../builder/QueryBuilder';
+import { candySearchAbleFields } from './candy.constant';
 
 // const loginCandyGiver = async (
 //   email: string,
@@ -29,18 +31,59 @@ import { User } from '../user/user.model';
 //   }
 // };
 
-const getAllCandy = async (query: Record<string, unknown>) => {
-  const studentQuery = new QueryBuilder(
-    CandyGiver.find().populate('user'),
-    query,
-  )
-    .search(candySearchAbleFields)
-    .filter()
-    .sort()
-    .paginate()
-    .fields();
+// const getAllCandy = async (query: Record<string, unknown>) => {
+//   const adminQuery = new QueryBuilder(CandyGiver.find().populate('user'), query)
+//     .search(candySearchAbleFields)
+//     .filter()
+//     .sort()
+//     .paginate()
+//     .fields();
 
-  const result = await studentQuery.modelQuery;
+//   const result = await adminQuery.modelQuery;
+//   return result;
+// };
+const getAllCandy = async (
+  query: Record<string, unknown>,
+  lat?: number,
+  lng?: number,
+  maxDistance?: number,
+) => {
+  let result;
+
+  if (lat && lng) {
+    result = await CandyGiver.aggregate([
+      {
+        $geoNear: {
+          near: {
+            type: 'Point',
+            coordinates: [lng, lat],
+          },
+          key: 'currentLon',
+          maxDistance: maxDistance ? maxDistance * 1609 : undefined,
+          distanceField: 'dist.calculated',
+          spherical: true,
+        },
+      },
+      {
+        $match: {
+          isDeleted: false,
+        },
+      },
+    ]);
+  } else {
+    const adminQuery = new QueryBuilder(
+      CandyGiver.find({ isDeleted: false }).populate('user'),
+      query,
+    )
+      .search(candySearchAbleFields)
+      .filter()
+      .sort()
+      .paginate()
+      .fields();
+
+    result = await adminQuery.modelQuery;
+  }
+
   return result;
 };
 
