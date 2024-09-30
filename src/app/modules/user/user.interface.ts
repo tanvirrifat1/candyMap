@@ -11,7 +11,7 @@ export type TUser = {
 
 export type UserModel = {
   isUserExist(
-    id: string,
+    email: string,
   ): Promise<
     Pick<TUser, 'email' | 'password' | 'role' | 'needsPasswordChange'>
   >;

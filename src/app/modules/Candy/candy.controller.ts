@@ -37,7 +37,7 @@ import { CandyService } from './candy.service';
 // });
 
 const getAllCandy = catchAsync(async (req, res) => {
-  const result = await CandyService.getAllCandy();
+  const result = await CandyService.getAllCandy(req.query);
 
   sendResponse(res, {
     statusCode: httpStatus.OK,
@@ -47,6 +47,45 @@ const getAllCandy = catchAsync(async (req, res) => {
   });
 });
 
+const getSingleCandyIntoDb = catchAsync(async (req, res) => {
+  const result = await CandyService.getSingleCandyIntoDb(req.params.id);
+
+  sendResponse(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: 'single candyGiver get successfully',
+    data: result,
+  });
+});
+
+const updateCandyGiverIntoDb = catchAsync(async (req, res) => {
+  const result = await CandyService.updateCandyGiverIntoDb(
+    req.params.id,
+    req.body,
+  );
+
+  sendResponse(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: 'update candyGiver successfully',
+    data: result,
+  });
+});
+
+const deleteCandyFromDb = catchAsync(async (req, res) => {
+  const result = await CandyService.deleteCandyFromDb(req.params.id);
+
+  sendResponse(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: 'delete candyGiver successfully',
+    data: result,
+  });
+});
+
 export const CandyController = {
   getAllCandy,
+  getSingleCandyIntoDb,
+  updateCandyGiverIntoDb,
+  deleteCandyFromDb,
 };

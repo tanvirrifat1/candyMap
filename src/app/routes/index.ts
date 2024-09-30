@@ -2,6 +2,7 @@ import { Router } from 'express';
 import { CandyGiverRoute } from '../modules/Candy/candy.route';
 import { UserRoute } from '../modules/user/user.route';
 import { AdminRoute } from '../modules/Admin/Admin.route';
+import { AuthRoute } from '../modules/auth/auth.route';
 
 const router = Router();
 
@@ -17,6 +18,10 @@ const modulesRoutes = [
   {
     path: '/admin',
     route: AdminRoute,
+  },
+  {
+    path: '/auth',
+    route: AuthRoute,
   },
 ];
 
