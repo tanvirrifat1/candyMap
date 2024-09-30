@@ -17,9 +17,6 @@ const adminSchema: Schema = new Schema<TAdmin>(
       unique: true,
       ref: 'User',
     },
-    contactNo: {
-      type: String,
-    },
     body: {
       type: String,
       required: true,
