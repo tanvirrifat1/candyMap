@@ -2,12 +2,13 @@ import express from 'express';
 import { UserController } from './user.controller';
 import validateRequest from '../../middlewares/ValidateRequst';
 import { AdminValidationSchema } from '../Admin/admin.validation';
+import { CandyValidationSchema } from '../Candy/candy.validation';
 
 const router = express.Router();
 
 router.post(
   '/create-candy',
-  validateRequest(AdminValidationSchema.createAdminValidationSchema),
+  validateRequest(CandyValidationSchema.createCandyValidationSchema),
   UserController.createCandyGiverIntoDb,
 );
 router.post(

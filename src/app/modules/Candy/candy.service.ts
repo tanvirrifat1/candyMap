@@ -1,6 +1,4 @@
 import mongoose from 'mongoose';
-// import QueryBuilder from '../../builder/QueryBuilder';
-// import { candySearchAbleFields } from './candy.constant';
 import { TCandyGiver } from './candy.interface';
 import { CandyGiver } from './candy.model';
 import { AppError } from '../../../utils/AppError';
@@ -9,39 +7,6 @@ import { User } from '../user/user.model';
 import QueryBuilder from '../../builder/QueryBuilder';
 import { candySearchAbleFields } from './candy.constant';
 
-// const loginCandyGiver = async (
-//   email: string,
-//   password: string,
-// ): Promise<string | null> => {
-//   try {
-//     const candyGiver = await CandyGiver.findOne({ email });
-//     if (candyGiver && (await bcrypt.compare(password, candyGiver.password))) {
-//       // Generate JWT token
-//       const token = jwt.sign(
-//         { id: candyGiver._id },
-//         process.env.DEFAULT_PASSWORD || 'secret',
-//         { expiresIn: '1h' },
-//       );
-//       return token;
-//     }
-//     return null;
-//   } catch (error) {
-//     console.error('Error logging in candy giver:', error);
-//     throw new Error('Failed to log in candy giver');
-//   }
-// };
-
-// const getAllCandy = async (query: Record<string, unknown>) => {
-//   const adminQuery = new QueryBuilder(CandyGiver.find().populate('user'), query)
-//     .search(candySearchAbleFields)
-//     .filter()
-//     .sort()
-//     .paginate()
-//     .fields();
-
-//   const result = await adminQuery.modelQuery;
-//   return result;
-// };
 const getAllCandy = async (
   query: Record<string, unknown>,
   lat?: number,
