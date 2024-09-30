@@ -24,4 +24,6 @@ functionality ===>
      
 
 
-ER-Dragram-link:https://lucid.app/lucidchart/8a208298-0992-4b5f-8e07-3973f7220d54/edit?invitationId=inv_c5c3b6c2-ea07-48cc-a1cc-5bbfeaaafb45
+ER-Diagram-link:https://lucid.app/lucidchart/8a208298-0992-4b5f-8e07-3973f7220d54/edit?invitationId=inv_c5c3b6c2-ea07-48cc-a1cc-5bbfeaaafb45
+
+ER-Diagram-Image: https://i.ibb.co.com/TvTFq6h/Screenshot-7.png
