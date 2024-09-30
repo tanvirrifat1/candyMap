@@ -47,3 +47,7 @@ const loginUser = async (payload: ILoginUser): Promise<ILoginUserResponse> => {
 export const AuthService = {
   loginUser,
 };
+
+// eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9
+//   .eyJlbWFpbEFkZHJlc3MiOiJtYXhAZXhhbXBsZS5jb20iLCJyb2xlIjoiYWRtaW4iLCJpYXQiOjE3Mjc2NjczNDksImV4cCI6MTczMjg1MTM0OX0
+//   .Ph9EQxv81Uk7NjZCzSRAlWnGK0G1CbbHZHhb8tBcQ3I;

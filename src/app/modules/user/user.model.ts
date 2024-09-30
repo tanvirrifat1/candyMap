@@ -49,4 +49,19 @@ userSchema.post('save', function (doc, next) {
   next();
 });
 
+userSchema.statics.isUserExist = async function (email: string) {
+  return this.findOne(
+    { email },
+    'email password role needsPasswordChange',
+  ).exec();
+};
+
+// Static method to check if passwords match
+userSchema.statics.isPasswordMatched = async function (
+  givenPassword: string,
+  savedPassword: string,
+) {
+  return bcrypt.compare(givenPassword, savedPassword);
+};
+
 export const User = model<TUser>('User', userSchema);
