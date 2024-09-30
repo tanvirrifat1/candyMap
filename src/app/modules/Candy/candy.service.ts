@@ -68,17 +68,17 @@ const deleteCandyFromDb = async (id: string) => {
   const session = await mongoose.startSession();
   try {
     session.startTransaction();
-    const deletedStudent = await CandyGiver.findByIdAndUpdate(
+    const deletedCandy = await CandyGiver.findByIdAndUpdate(
       { _id: id },
       { isDeleted: true },
       { new: true, session },
     );
 
-    if (!deletedStudent) {
+    if (!deletedCandy) {
       throw new AppError(httpStatus.BAD_REQUEST, 'Failed to delete candyGiver');
     }
 
-    const userId = deletedStudent.user;
+    const userId = deletedCandy.user;
 
     const deleteUser = await User.findByIdAndUpdate(
       userId,
@@ -93,7 +93,7 @@ const deleteCandyFromDb = async (id: string) => {
     await session.commitTransaction();
     await session.endSession();
 
-    return deletedStudent;
+    return deletedCandy;
   } catch (error) {
     await session.abortTransaction();
     await session.endSession();

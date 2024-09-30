@@ -36,17 +36,17 @@ const deleteAdminFromDb = async (id: string) => {
   const session = await mongoose.startSession();
   try {
     session.startTransaction();
-    const deletedStudent = await Admin.findByIdAndUpdate(
+    const deletedAdmin = await Admin.findByIdAndUpdate(
       { _id: id },
       { isDeleted: true },
       { new: true, session },
     );
 
-    if (!deletedStudent) {
+    if (!deletedAdmin) {
       throw new AppError(httpStatus.BAD_REQUEST, 'Failed to delete admin');
     }
 
-    const userId = deletedStudent.user;
+    const userId = deletedAdmin.user;
 
     const deleteUser = await User.findByIdAndUpdate(
       userId,
@@ -61,7 +61,7 @@ const deleteAdminFromDb = async (id: string) => {
     await session.commitTransaction();
     await session.endSession();
 
-    return deletedStudent;
+    return deletedAdmin;
   } catch (error) {
     await session.abortTransaction();
     await session.endSession();
