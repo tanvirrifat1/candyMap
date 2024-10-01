@@ -14,6 +14,12 @@ candyGiver and admin ===>
           see lat lng location
        2. you can edit information       
        3. you can delete account just change isDeleted filed ==> false==true
+
+
+Parent create and sendMail==>
+       1. If candyGiver create to parent account
+       2. when you create account then auto send email
+       3. Implement nodemailer        
            
 
 functionality ===>
