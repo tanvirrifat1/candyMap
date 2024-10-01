@@ -14,6 +14,12 @@ candyGiver and admin ===>
           see lat lng location
        2. you can edit information       
        3. you can delete account just change isDeleted filed ==> false==true
+
+
+Parent create and sendMail==>
+       1. If candyGiver create to parent account
+       2. when you create account then auto send email
+       3. Implement nodemailer        
            
 
 functionality ===>
@@ -26,4 +32,4 @@ functionality ===>
 
 ER-Diagram-link:https://lucid.app/lucidchart/8a208298-0992-4b5f-8e07-3973f7220d54/edit?invitationId=inv_c5c3b6c2-ea07-48cc-a1cc-5bbfeaaafb45
 
-ER-Diagram-Image: https://i.ibb.co.com/TvTFq6h/Screenshot-7.png
+ER-Diagram-Image: https://i.ibb.co.com/1X95BSn/Screenshot-8.png
